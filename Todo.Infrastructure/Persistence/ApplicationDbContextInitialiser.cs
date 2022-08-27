@@ -49,7 +49,7 @@ public class ApplicationDbContextInitialiser
         // Default data
 
         // Seed, if necessary
-        if (!_context.TodoLists.Any())
+        if (!_context.TodoItems.Any())
         {
             _context.TodoItems.AddRange(new List<TodoItem>
             {

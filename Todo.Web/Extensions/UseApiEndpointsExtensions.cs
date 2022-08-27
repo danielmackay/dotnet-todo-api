@@ -6,7 +6,7 @@ public static class UseApiEndpointsExtensions
 {
     public static IApplicationBuilder UseApiEndpoints(this WebApplication app)
     {
-        app.MapGet("/todo-items", (ISender sender) => 
+        app.MapGet("/todo-items", (ISender sender) =>
         {
             return sender.Send(new GetTodoItemsQuery());
         })
