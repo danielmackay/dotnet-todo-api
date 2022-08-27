@@ -9,7 +9,7 @@ namespace Todo.Application.TodoItems.Commands.CreateTodoItem;
 
 public record CreateTodoItemCommand : IRequest<int>
 {
-    public int? TodoListId { get; init; }
+    //public int? TodoListId { get; init; }
 
     public string? Title { get; init; }
 }
@@ -27,7 +27,7 @@ public class CreateTodoItemCommandHandler : IRequestHandler<CreateTodoItemComman
     {
         var entity = new TodoItem
         {
-            TodoListId = request.TodoListId,
+            //TodoListId = request.TodoListId,
             Title = request.Title,
             Done = false
         };

@@ -10,7 +10,7 @@ namespace Todo.Application.TodoItems.Queries.GetTodoItems;
 
 public record GetTodoItemsQuery : IRequest<PaginatedList<TodoItemDto>>
 {
-    public int? TodoListId { get; init; }
+    //public int? TodoListId { get; init; }
     public int PageNumber { get; init; } = 1;
     public int PageSize { get; init; } = 10;
 }
@@ -30,8 +30,8 @@ public class GetTodoItemsQueryHandler : IRequestHandler<GetTodoItemsQuery, Pagin
     {
         IQueryable<TodoItem> query = _context.TodoItems;
 
-        if (request.TodoListId.HasValue)
-            query = query.Where(x => x.TodoListId == request.TodoListId);
+        //if (request.TodoListId.HasValue)
+        //    query = query.Where(x => x.TodoListId == request.TodoListId);
 
         return await query
             .OrderBy(x => x.Title)
