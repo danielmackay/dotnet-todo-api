@@ -1,6 +1,6 @@
 ﻿namespace Todo.Domain.Common;
 
-public abstract class AuditableEntity
+public abstract class BaseAuditableEntity
 {
     public DateTime Created { get; set; }
 

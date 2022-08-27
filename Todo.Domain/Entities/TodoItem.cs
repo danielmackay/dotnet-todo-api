@@ -3,7 +3,7 @@ using Todo.Domain.Enums;
 
 namespace Todo.Domain.Entities;
 
-public class TodoItem : AuditableEntity
+public class TodoItem : BaseAuditableEntity
 {
     public int TodoItemId { get; set; }
 
@@ -15,9 +15,9 @@ public class TodoItem : AuditableEntity
 
     public bool Done { get; set; }
 
-    public Priority Priority { get; set; }
+    public Priority Priority { get; set; } = Priority.Medium;
 
-    public DateTime DueDate { get; set; }
+    public DateTime? DueDate { get; set; }
 
     public TodoList? List { get; set; }
 }

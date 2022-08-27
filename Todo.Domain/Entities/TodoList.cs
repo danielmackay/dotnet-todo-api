@@ -2,7 +2,7 @@
 
 namespace Todo.Domain.Entities;
 
-public class TodoList : AuditableEntity
+public class TodoList : BaseAuditableEntity
 {
     public int TodoListId { get; set; }
 

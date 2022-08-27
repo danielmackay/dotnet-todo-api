@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Todo.Application.Common.Interfaces;
 using Todo.Infrastructure.Persistence;
+using Todo.Infrastructure.Persistence.Interceptors;
 using Todo.Infrastructure.Services;
 
 namespace Todo.Infrastructure;
@@ -11,7 +12,9 @@ public static class ConfigureServices
 {
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
     {
-            services.AddDbContext<ApplicationDbContext>(options =>
+        services.AddScoped<AuditableEntitySaveChangesInterceptor>();
+
+        services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
                     builder => builder.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
 
