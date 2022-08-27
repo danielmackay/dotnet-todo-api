@@ -16,9 +16,11 @@ public static class ConfigureServices
         services.AddHealthChecks()
             .AddDbContextCheck<ApplicationDbContext>();
 
-        services.AddControllersWithViews(options =>
-            options.Filters.Add<ApiExceptionFilterAttribute>())
-                .AddFluentValidation(x => x.AutomaticValidationEnabled = false);
+        services.AddControllers(options =>
+            options.Filters.Add<ApiExceptionFilterAttribute>());
+
+        services.AddFluentValidationAutoValidation(x => x.DisableDataAnnotationsValidation = true)
+            .AddFluentValidationClientsideAdapters();
 
         // Customise default API behaviour
         services.Configure<ApiBehaviorOptions>(options =>
