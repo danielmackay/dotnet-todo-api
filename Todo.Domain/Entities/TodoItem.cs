@@ -5,9 +5,9 @@ namespace Todo.Domain.Entities;
 
 public class TodoItem : AuditableEntity
 {
-    public int TodoId { get; set; }
+    public int TodoItemId { get; set; }
 
-    public int TodoListId { get; set; }
+    public int? TodoListId { get; set; }
 
     public string? Title { get; set; }
 
@@ -17,7 +17,7 @@ public class TodoItem : AuditableEntity
 
     public Priority Priority { get; set; }
 
-    public DateOnly DueDate { get; set; }
+    public DateTime DueDate { get; set; }
 
     public TodoList? List { get; set; }
 }
