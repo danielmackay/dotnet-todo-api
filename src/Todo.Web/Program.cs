@@ -14,6 +14,10 @@ builder.Services.AddWebUIServices();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors(o =>
+            o.AddDefaultPolicy(b =>
+                b.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -37,10 +41,12 @@ else
     app.UseHsts();
 }
 
+
 app.UseHealthChecks("/health");
 app.UseHttpsRedirection();
 
 app.UseRouting();
+app.UseCors();
 
 app.MapControllerRoute(
     name: "default",
