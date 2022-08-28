@@ -2,6 +2,7 @@
 using Todo.Application.Common.Models;
 using Todo.Application.TodoItems.Commands.CreateTodoItem;
 using Todo.Application.TodoItems.Commands.DeleteTodoItem;
+using Todo.Application.TodoItems.Commands.UpdateTodoItem;
 using Todo.Application.TodoItems.Queries.GetTodoItems;
 
 namespace Todo.Web.Controllers;
@@ -21,36 +22,19 @@ public class TodoItemsController : ApiControllerBase
         return await Mediator.Send(command);
     }
 
-    //[HttpPut("{id}")]
-    //public async Task<ActionResult> Update(int id, UpdateTodoItemCommand command)
-    //{
-    //    if (id != command.Id)
-    //    {
-    //        return BadRequest();
-    //    }
-
-    //    await Mediator.Send(command);
-
-    //    return NoContent();
-    //}
-
-    //[HttpPut("[action]")]
-    //public async Task<ActionResult> UpdateItemDetails(int id, UpdateTodoItemDetailCommand command)
-    //{
-    //    if (id != command.Id)
-    //    {
-    //        return BadRequest();
-    //    }
-
-    //    await Mediator.Send(command);
-
-    //    return NoContent();
-    //}
-
-    [HttpDelete("{id}")]
-    public async Task<ActionResult> Delete(int id)
+    [HttpPut("{todoItemId:int}")]
+    public async Task<ActionResult> Update(int todoItemId, UpdateTodoItemCommand command)
     {
-        await Mediator.Send(new DeleteTodoItemCommand(id));
+        command.TodoItemId = todoItemId;
+        await Mediator.Send(command);
+        
+        return NoContent();
+    }
+
+    [HttpDelete("{todoItemId:int}")]
+    public async Task<ActionResult> Delete(int todoItemId)
+    {
+        await Mediator.Send(new DeleteTodoItemCommand(todoItemId));
         return NoContent();
     }
 }
