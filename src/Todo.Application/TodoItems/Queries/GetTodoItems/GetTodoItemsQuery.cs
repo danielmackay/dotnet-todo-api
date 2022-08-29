@@ -8,14 +8,14 @@ using Todo.Domain.Entities;
 
 namespace Todo.Application.TodoItems.Queries.GetTodoItems;
 
-public record GetTodoItemsQuery : IRequest<PaginatedList<TodoItemDto>>
+public record GetTodoItemsQuery : IRequest<PaginatedList<TodoItemBriefDto>>
 {
     //public int? TodoListId { get; init; }
     public int PageNumber { get; init; } = 1;
     public int PageSize { get; init; } = 10;
 }
 
-public class GetTodoItemsQueryHandler : IRequestHandler<GetTodoItemsQuery, PaginatedList<TodoItemDto>>
+public class GetTodoItemsQueryHandler : IRequestHandler<GetTodoItemsQuery, PaginatedList<TodoItemBriefDto>>
 {
     private readonly IApplicationDbContext _context;
     private readonly IMapper _mapper;
@@ -26,7 +26,7 @@ public class GetTodoItemsQueryHandler : IRequestHandler<GetTodoItemsQuery, Pagin
         _mapper = mapper;
     }
 
-    public async Task<PaginatedList<TodoItemDto>> Handle(GetTodoItemsQuery request, CancellationToken cancellationToken)
+    public async Task<PaginatedList<TodoItemBriefDto>> Handle(GetTodoItemsQuery request, CancellationToken cancellationToken)
     {
         IQueryable<TodoItem> query = _context.TodoItems;
 
@@ -35,7 +35,7 @@ public class GetTodoItemsQueryHandler : IRequestHandler<GetTodoItemsQuery, Pagin
 
         return await query
             .OrderBy(x => x.Title)
-            .ProjectTo<TodoItemDto>(_mapper.ConfigurationProvider)
+            .ProjectTo<TodoItemBriefDto>(_mapper.ConfigurationProvider)
             .PaginatedListAsync(request.PageNumber, request.PageSize);
     }
 }

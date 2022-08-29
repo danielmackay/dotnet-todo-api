@@ -3,6 +3,7 @@ using Todo.Application.Common.Models;
 using Todo.Application.TodoItems.Commands.CreateTodoItem;
 using Todo.Application.TodoItems.Commands.DeleteTodoItem;
 using Todo.Application.TodoItems.Commands.UpdateTodoItem;
+using Todo.Application.TodoItems.Queries.GetTodoItem;
 using Todo.Application.TodoItems.Queries.GetTodoItems;
 
 namespace Todo.Web.Controllers;
@@ -11,9 +12,15 @@ namespace Todo.Web.Controllers;
 public class TodoItemsController : ApiControllerBase
 {
     [HttpGet]
-    public async Task<ActionResult<PaginatedList<TodoItemDto>>> GetAll([FromQuery] GetTodoItemsQuery query)
+    public async Task<ActionResult<PaginatedList<TodoItemBriefDto>>> GetAll([FromQuery] GetTodoItemsQuery query)
     {
         return await Mediator.Send(query);
+    }
+
+    [HttpGet("{todoItemId:int}")]
+    public async Task<ActionResult<TodoItemDto>> Get(int todoItemId)
+    {
+        return await Mediator.Send(new GetTodoItemQuery(todoItemId));
     }
 
     [HttpPost]
@@ -37,4 +44,5 @@ public class TodoItemsController : ApiControllerBase
         await Mediator.Send(new DeleteTodoItemCommand(todoItemId));
         return NoContent();
     }
+
 }
