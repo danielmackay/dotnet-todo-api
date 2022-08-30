@@ -29,7 +29,7 @@ public class TodoItemsController : ApiControllerBase
         return await Mediator.Send(command);
     }
 
-    [HttpPut("{todoItemId:int}")]
+    [HttpPatch("{todoItemId:int}")]
     public async Task<ActionResult> Update(int todoItemId, UpdateTodoItemCommand command)
     {
         command.TodoItemId = todoItemId;
